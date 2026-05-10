@@ -1,41 +1,41 @@
 export const CONTENT = {
-  name: "Your Name",
+  name: "Jules Nabon",
   title: "Full-Stack Developer",
-  tagline: "I build things for the web.",
-  github: "https://github.com/yourusername",
-  linkedin: "https://linkedin.com/in/yourhandle",
-  email: "you@example.com",
+  tagline: "Lead Software Engineer | Freelance web developer | Tech Enthusiast",
+  github: "https://github.com/Julesnab",
+  linkedin: "https://linkedin.com/in/jules-nabon",
+  email: "julesnabon9@gmail.com",
 
   about: {
-    bio: "I'm a developer who loves building clean, performant web applications. I care about good UX, well-structured code, and tools that actually make life easier. When I'm not coding, I'm probably learning something new.",
+    bio: "I'm a French developer who loves building clean, performant applications. I care about good UX, well-structured code, and tools that actually make life easier. When I'm not coding, I'm probably learning something new.",
     skills: [
-      "React", "TypeScript", "JavaScript", "Node.js",
-      "Python", "PostgreSQL", "Docker", "Git",
-      "Vite", "Cloudflare Workers", "CSS", "REST APIs"
+      "React", "Java", "JavaScript", "Node.js",
+      "Python", "SQL", "Docker", "Git", "C", "AWS",
+      "CSS", "REST APIs", "OCaml", "Assembler"
     ],
   },
 
   projects: [
     {
-      title: "Project One",
-      description: "A full-stack web app that does something really useful. Built to solve a real problem with a clean interface and reliable backend.",
-      stack: ["React", "Node.js", "PostgreSQL"],
-      github: "https://github.com/yourusername/project-one",
-      demo: "https://project-one.example.com",
+      title: "Revailo",
+      description: "Full time lead software developer on the Revailo team, building an AI-powered and 3D rendered masonry estimation software.",
+      stack: ["Python", "SQL", "AWS", "Git"],
+      github: null,
+      demo: "https://revailo.com",
     },
     {
-      title: "Project Two",
-      description: "An open-source tool or library. Lightweight, well-documented, and used by others in the community.",
-      stack: ["TypeScript", "Vite", "CSS"],
-      github: "https://github.com/yourusername/project-two",
-      demo: null,
+      title: "Chalet La Ressource",
+      description: "A luxury chalet rental website built with React and Vite.",
+      stack: ["React", "Vite", "CSS"],
+      github: null,
+      demo: "https://chalet-la-ressource.pages.dev/",
     },
     {
-      title: "Project Three",
-      description: "A side project built to explore a new technology. Learned a lot, shipped something usable.",
-      stack: ["Python", "Docker", "Cloudflare Workers"],
-      github: "https://github.com/yourusername/project-three",
-      demo: null,
+      title: "Lone Star Comfort",
+      description: "An HVAC website side project built to explore a new technology. Learned a lot, shipped something usable.",
+      stack: ["React", "Vite", "CSS"],
+      github: "https://github.com/Julesnab/lone-star-comfort",
+      demo: "https://lone-star-comfort.pages.dev/",
     },
   ],
 }
