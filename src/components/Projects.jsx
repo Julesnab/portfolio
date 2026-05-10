@@ -1,8 +1,52 @@
+import { useState, useRef, useEffect } from 'react'
 import { CONTENT } from '../content'
 
+const PAGE_SIZE = 3
+
+const SLIDE_STYLES = `
+  @keyframes slideFromRight {
+    from { opacity: 0; transform: translateX(32px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideFromLeft {
+    from { opacity: 0; transform: translateX(-32px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+`
+
 export default function Projects() {
+  const [page, setPage] = useState(0)
+  const [animKey, setAnimKey] = useState(0)
+  const [animDir, setAnimDir] = useState(0) // -1 = prev, 1 = next
+  const [gridMinHeight, setGridMinHeight] = useState(0)
+  const gridRef = useRef(null)
+
+  const projects = CONTENT.projects
+  const totalPages = Math.ceil(projects.length / PAGE_SIZE)
+  const visible = projects.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE)
+  const hasPrev = page > 0
+  const hasNext = page < totalPages - 1
+
+  useEffect(() => {
+    if (gridRef.current) {
+      const h = gridRef.current.offsetHeight
+      setGridMinHeight(prev => Math.max(prev, h))
+    }
+  })
+
+  const navigate = (dir) => {
+    setAnimDir(dir)
+    setPage(p => p + dir)
+    setAnimKey(k => k + 1)
+  }
+
+  const animation = animKey === 0
+    ? 'none'
+    : `${animDir > 0 ? 'slideFromRight' : 'slideFromLeft'} 0.3s ease`
+
   return (
     <section id="projects">
+      <style>{SLIDE_STYLES}</style>
       <div className="container">
         <span className="section-label">// projects</span>
         <h2 style={{
@@ -15,17 +59,139 @@ export default function Projects() {
           Things I've built
         </h2>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: '1.5rem',
-        }}>
-          {CONTENT.projects.map(project => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <NavArrow direction="left" onClick={() => navigate(-1)} disabled={!hasPrev} />
+
+          <div style={{ flex: 1, minHeight: gridMinHeight }}>
+            <div
+              ref={gridRef}
+              key={animKey}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1.5rem',
+                animation,
+              }}
+            >
+              {visible.map((project, i) => (
+                <ProjectCard key={project.title + i} project={project} />
+              ))}
+            </div>
+          </div>
+
+          <NavArrow direction="right" onClick={() => navigate(1)} disabled={!hasNext} />
         </div>
+
+        {totalPages > 1 && (
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.75rem' }}>
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setAnimDir(i > page ? 1 : -1); setPage(i); setAnimKey(k => k + 1) }}
+                style={{
+                  width: i === page ? '1.5rem' : '0.5rem',
+                  height: '0.5rem',
+                  borderRadius: '9999px',
+                  border: 'none',
+                  background: i === page ? 'var(--accent)' : 'var(--bg-border)',
+                  cursor: 'pointer',
+                  padding: 0,
+                  transition: 'all 0.25s ease',
+                }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
+  )
+}
+
+function NavArrow({ direction, onClick, disabled }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        flexShrink: 0,
+        width: '2.25rem',
+        height: '2.25rem',
+        borderRadius: '50%',
+        border: '1px solid var(--bg-border)',
+        background: 'var(--bg-surface)',
+        color: 'var(--text-primary)',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '1rem',
+        transition: 'border-color 0.2s ease, color 0.2s ease',
+        visibility: disabled ? 'hidden' : 'visible',
+      }}
+      onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--accent)'}
+      onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--bg-border)'}
+    >
+      {direction === 'left' ? '←' : '→'}
+    </button>
+  )
+}
+
+function SitePreview({ url }) {
+  const [blocked, setBlocked] = useState(false)
+
+  if (!url) return null
+
+  return (
+    <div style={{
+      position: 'relative',
+      width: '100%',
+      height: '160px',
+      overflow: 'hidden',
+      borderRadius: '4px',
+      background: 'var(--bg)',
+      border: '1px solid var(--bg-border)',
+      marginBottom: '0.25rem',
+    }}>
+      {blocked ? (
+        <div style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.4rem',
+          color: 'var(--text-muted)',
+          fontSize: '0.75rem',
+          fontFamily: 'var(--font-mono)',
+        }}>
+          <span style={{ fontSize: '1.25rem' }}>🔒</span>
+          preview blocked
+        </div>
+      ) : (
+        <>
+          <iframe
+            src={url}
+            title="site preview"
+            loading="lazy"
+            sandbox="allow-same-origin allow-scripts"
+            onError={() => setBlocked(true)}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '400%',
+              height: '720px',
+              transform: 'scale(0.25)',
+              transformOrigin: 'top left',
+              border: 'none',
+              pointerEvents: 'none',
+            }}
+          />
+          {/* click-through shield so the card hover still works */}
+          <div style={{ position: 'absolute', inset: 0 }} />
+        </>
+      )}
+    </div>
   )
 }
 
@@ -56,6 +222,7 @@ function ProjectCard({ project }) {
         e.currentTarget.style.transform = 'none'
       }}
     >
+      <SitePreview url={project.demo || project.github} />
       <div>
         <h3 style={{
           fontSize: '1rem',
@@ -96,24 +263,26 @@ function ProjectCard({ project }) {
         marginTop: 'auto',
         paddingTop: '0.25rem',
       }}>
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.8rem',
-            color: 'var(--accent)',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.3rem',
-          }}
-          onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
-          onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
-        >
-          GitHub ↗
-        </a>
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.8rem',
+              color: 'var(--accent)',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.3rem',
+            }}
+            onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+            onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+          >
+            GitHub ↗
+          </a>
+        )}
         {project.demo && (
           <a
             href={project.demo}

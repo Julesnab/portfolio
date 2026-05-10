@@ -18,7 +18,7 @@ export const CONTENT = {
   projects: [
     {
       title: "Revailo",
-      description: "Full time lead software developer on the Revailo team, building an AI-powered and 3D rendered masonry estimation software.",
+      description: "Full time lead software developer on the Revailo team, building an AI-powered and 3D rendered masonry estimation software. (I didn't make the website, but I work on the product!)",
       stack: ["Python", "SQL", "AWS", "Git"],
       github: null,
       demo: "https://revailo.com",
