@@ -1,7 +1,20 @@
 import { useState, useRef, useEffect } from 'react'
 import { CONTENT } from '../content'
 
-const PAGE_SIZE = 3
+function usePageSize() {
+  const getSize = () => {
+    if (window.innerWidth < 640) return 1
+    if (window.innerWidth < 1024) return 2
+    return 3
+  }
+  const [pageSize, setPageSize] = useState(getSize)
+  useEffect(() => {
+    const handler = () => setPageSize(getSize())
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
+  return pageSize
+}
 
 const SLIDE_STYLES = `
   @keyframes slideFromRight {
@@ -15,17 +28,24 @@ const SLIDE_STYLES = `
 `
 
 export default function Projects() {
+  const pageSize = usePageSize()
   const [page, setPage] = useState(0)
   const [animKey, setAnimKey] = useState(0)
-  const [animDir, setAnimDir] = useState(0) // -1 = prev, 1 = next
+  const [animDir, setAnimDir] = useState(0)
   const [gridMinHeight, setGridMinHeight] = useState(0)
   const gridRef = useRef(null)
 
   const projects = CONTENT.projects
-  const totalPages = Math.ceil(projects.length / PAGE_SIZE)
-  const visible = projects.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE)
+  const totalPages = Math.ceil(projects.length / pageSize)
+  const visible = projects.slice(page * pageSize, page * pageSize + pageSize)
   const hasPrev = page > 0
   const hasNext = page < totalPages - 1
+
+  useEffect(() => {
+    setPage(0)
+    setGridMinHeight(0)
+    setAnimKey(0)
+  }, [pageSize])
 
   useEffect(() => {
     if (gridRef.current) {
@@ -68,7 +88,7 @@ export default function Projects() {
               key={animKey}
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: `repeat(${pageSize}, 1fr)`,
                 gap: '1.5rem',
                 animation,
               }}
