@@ -4,7 +4,7 @@ export const CONTENT = {
   tagline: "Lead Software Engineer | Freelance web developer | Tech Enthusiast",
   github: "https://github.com/Julesnab",
   linkedin: "https://linkedin.com/in/jules-nabon",
-  email: "julesnabon9@gmail.com",
+  email: "julesnabon.web@gmail.com",
 
   about: {
     bio: "I'm a French developer who loves building clean, performant applications. I care about good UX, well-structured code, and tools that actually make life easier. When I'm not coding, I'm probably learning something new.",
