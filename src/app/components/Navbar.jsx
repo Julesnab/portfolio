@@ -1,5 +1,7 @@
+'use client'
+
 import { useState, useEffect } from 'react'
-import { CONTENT } from '../content'
+import { CONTENT } from '../../content'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)

@@ -1,14 +1,17 @@
+'use client'
+
 import { useState, useRef, useEffect } from 'react'
-import { CONTENT } from '../content'
+import { CONTENT } from '../../content'
 
 function usePageSize() {
-  const getSize = () => {
-    if (window.innerWidth < 640) return 1
-    if (window.innerWidth < 1024) return 2
-    return 3
-  }
-  const [pageSize, setPageSize] = useState(getSize)
+  const [pageSize, setPageSize] = useState(3)
   useEffect(() => {
+    const getSize = () => {
+      if (window.innerWidth < 640) return 1
+      if (window.innerWidth < 1024) return 2
+      return 3
+    }
+    setPageSize(getSize())
     const handler = () => setPageSize(getSize())
     window.addEventListener('resize', handler)
     return () => window.removeEventListener('resize', handler)

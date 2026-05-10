@@ -1,4 +1,4 @@
-import { CONTENT } from '../content'
+import { CONTENT } from '../../content'
 
 export default function Footer() {
   return (
@@ -20,7 +20,7 @@ export default function Footer() {
         fontSize: '0.75rem',
         color: 'var(--text-muted)',
       }}>
-        Built with React + Vite
+        Built with React + Next.js
       </span>
     </footer>
   )

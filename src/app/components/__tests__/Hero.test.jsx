@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import Hero from '../Hero'
-import { CONTENT } from '../../content'
+import { CONTENT } from '../../../content'
 
 describe('Hero', () => {
   it('renders the developer name', () => {

@@ -4,14 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "test": "vitest",
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
+    "next": "^15.3.2",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
   },
@@ -26,10 +27,8 @@
     "@vitest/coverage-v8": "^4.1.5",
     "eslint": "^10.2.1",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
     "jsdom": "^29.1.1",
-    "vite": "^8.0.10",
     "vitest": "^4.1.5"
   }
 }

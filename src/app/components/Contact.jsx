@@ -1,4 +1,6 @@
-import { CONTENT } from '../content'
+'use client'
+
+import { CONTENT } from '../../content'
 
 const LINKS = [
   { label: 'GitHub', href: CONTENT.github, desc: 'See my code' },

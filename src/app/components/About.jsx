@@ -1,4 +1,6 @@
-import { CONTENT } from '../content'
+'use client'
+
+import { CONTENT } from '../../content'
 
 export default function About() {
   return (

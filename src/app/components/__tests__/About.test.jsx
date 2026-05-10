@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import About from '../About'
-import { CONTENT } from '../../content'
+import { CONTENT } from '../../../content'
 
 describe('About', () => {
   it('renders the bio text', () => {
