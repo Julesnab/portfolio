@@ -4,14 +4,18 @@ import { useState, useRef, useEffect } from 'react'
 import { CONTENT } from '../../content'
 
 function usePageSize() {
-  const [pageSize, setPageSize] = useState(3)
+  const [pageSize, setPageSize] = useState(() => {
+    if (typeof window === 'undefined') return 3
+    if (window.innerWidth < 640) return 1
+    if (window.innerWidth < 1024) return 2
+    return 3
+  })
   useEffect(() => {
     const getSize = () => {
       if (window.innerWidth < 640) return 1
       if (window.innerWidth < 1024) return 2
       return 3
     }
-    setPageSize(getSize())
     const handler = () => setPageSize(getSize())
     window.addEventListener('resize', handler)
     return () => window.removeEventListener('resize', handler)
@@ -45,8 +49,11 @@ export default function Projects() {
   const hasNext = page < totalPages - 1
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(0)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setGridMinHeight(0)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAnimKey(0)
   }, [pageSize])
 
