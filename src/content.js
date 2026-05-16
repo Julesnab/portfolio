@@ -9,7 +9,7 @@ export const CONTENT = {
   about: {
     bio: "I'm a French developer who loves building clean, performant applications. I care about good UX, well-structured code, and tools that actually make life easier. When I'm not coding, I'm probably learning something new.",
     skills: [
-      "React", "Java", "JavaScript", "Node.js",
+      "React", "Java", "JavaScript", "Node.js", "Next.js", "Vite",
       "Python", "SQL", "Docker", "Git", "C", "AWS",
       "CSS", "REST APIs", "OCaml", "Assembler"
     ],
@@ -26,14 +26,14 @@ export const CONTENT = {
     {
       title: "Chalet La Ressource",
       description: "A luxury chalet rental website built with React and Vite.",
-      stack: ["React", "Vite", "CSS"],
+      stack: ["React", "Next.js", "CSS"],
       github: null,
       demo: "https://chaletlaressource.fr/",
     },
     {
       title: "Lone Star Comfort",
       description: "An HVAC website side project built to explore a new technology. Learned a lot, shipped something usable.",
-      stack: ["React", "Vite", "CSS"],
+      stack: ["React", "Next.js", "CSS"],
       github: "https://github.com/Julesnab/lone-star-comfort",
       demo: "https://lone-star-comfort.pages.dev/",
     },
