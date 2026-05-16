@@ -28,7 +28,7 @@ export const CONTENT = {
       description: "A luxury chalet rental website built with React and Vite.",
       stack: ["React", "Vite", "CSS"],
       github: null,
-      demo: "https://chalet-la-ressource.pages.dev/",
+      demo: "https://chaletlaressource.fr/",
     },
     {
       title: "Lone Star Comfort",
