@@ -32,6 +32,9 @@ const SLIDE_STYLES = `
     from { opacity: 0; transform: translateX(-32px); }
     to   { opacity: 1; transform: translateX(0); }
   }
+  @media (prefers-reduced-motion: reduce) {
+    [data-projects-grid] { animation: none !important; }
+  }
 `
 
 export default function Projects() {
@@ -96,6 +99,7 @@ export default function Projects() {
             <div
               ref={gridRef}
               key={animKey}
+              data-projects-grid
               style={{
                 display: 'grid',
                 gridTemplateColumns: `repeat(${pageSize}, 1fr)`,
@@ -118,6 +122,8 @@ export default function Projects() {
               <button
                 key={i}
                 onClick={() => { setAnimDir(i > page ? 1 : -1); setPage(i); setAnimKey(k => k + 1) }}
+                aria-label={`Go to page ${i + 1}`}
+                aria-current={i === page ? 'true' : undefined}
                 style={{
                   width: i === page ? '1.5rem' : '0.5rem',
                   height: '0.5rem',
@@ -141,10 +147,11 @@ function NavArrow({ direction, onClick, disabled }) {
   return (
     <button
       onClick={onClick}
+      aria-label={direction === 'left' ? 'Previous projects' : 'Next projects'}
       style={{
         flexShrink: 0,
-        width: '2.25rem',
-        height: '2.25rem',
+        width: '2.75rem',
+        height: '2.75rem',
         borderRadius: '50%',
         border: '1px solid var(--bg-border)',
         background: 'var(--bg-surface)',
@@ -194,7 +201,10 @@ function SitePreview({ url }) {
           fontSize: '0.75rem',
           fontFamily: 'var(--font-mono)',
         }}>
-          <span style={{ fontSize: '1.25rem' }}>🔒</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
           preview blocked
         </div>
       ) : (

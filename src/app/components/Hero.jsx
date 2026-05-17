@@ -160,6 +160,10 @@ export default function Hero() {
         .scroll-chevron {
           animation: bounce 1.8s ease-in-out infinite;
         }
+        @media (prefers-reduced-motion: reduce) {
+          .cursor { animation: none; opacity: 1; }
+          .scroll-chevron { animation: none; }
+        }
       `}</style>
     </section>
   )

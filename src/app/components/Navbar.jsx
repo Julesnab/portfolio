@@ -112,12 +112,13 @@ export default function Navbar() {
               href={`#${link.toLowerCase()}`}
               onClick={() => setMenuOpen(false)}
               style={{
-                display: 'block',
+                display: 'flex',
+                alignItems: 'center',
+                minHeight: '44px',
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.9rem',
                 color: 'var(--text-muted)',
                 textDecoration: 'none',
-                padding: '0.6rem 0',
                 borderBottom: '1px solid var(--bg-border)',
               }}
             >
