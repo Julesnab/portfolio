@@ -9,7 +9,7 @@ export const CONTENT = {
   about: {
     bio: "I'm a French developer who loves building clean, performant applications. I care about good UX, well-structured code, and tools that actually make life easier. When I'm not coding, I'm probably learning something new.",
     skills: [
-      "React", "Java", "JavaScript", "Node.js", "Next.js", "Vite",
+      "React", "Java", "JavaScript", "Node.js", "Next.js", "Vite", "Astro",
       "Python", "SQL", "Docker", "Git", "C", "AWS",
       "CSS", "REST APIs", "OCaml", "Assembler"
     ],
@@ -36,6 +36,13 @@ export const CONTENT = {
       stack: ["React", "Next.js", "CSS"],
       github: "https://github.com/Julesnab/lone-star-comfort",
       demo: "https://lone-star-comfort.pages.dev/",
+    },
+    {
+      title: "Arctic Ridge",
+      description: "Another HVAC website side project built to explore a new technology. Learned a lot, shipped something usable.",
+      stack: ["React", "Astro", "CSS"],
+      github: "https://github.com/Julesnab/HVAC-test",
+      demo: "https://arctic-ridge.pages.dev/",
     },
   ],
 }
